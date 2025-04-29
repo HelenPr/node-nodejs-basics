@@ -1,31 +1,15 @@
-import { createReadStream } from 'fs';
+import { createReadStream } from 'node:fs';
 import path from 'node:path';
-import readline from 'readline';
+import os from 'node:os';
+import { pipeline } from 'node:stream/promises';
+
+const filePath = path.resolve(import.meta.dirname, 'files', 'fileToRead.txt');
 
 const read = async () => {
-  const filePath = path.resolve(import.meta.dirname, 'files', 'fileToRead.txt');
   const stream = createReadStream(filePath);
+  stream.on('end', () => process.stdout.write(os.EOL));
 
-  stream.pipe(process.stdout);
-
-  await new Promise((resolve, reject) => {
-    stream.on('end', () => resolve());
-    stream.on('error', (error) => reject(error));
-  });
-
-  console.log('\n\nPress Enter to exit...');
-
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
-
-  await new Promise((resolve) => {
-    rl.question('', () => {
-        rl.close();
-        resolve();
-    });
-  });
+  await pipeline(stream, process.stdout, {end: false});
 };
 
 await read();
