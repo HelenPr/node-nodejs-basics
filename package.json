@@ -7,6 +7,6 @@
   },
   "type": "module",
   "scripts": {
-    "start": "node index.js $npm_config_username"
+    "start": "node src/index.js $npm_config_username"
   }
 }

@@ -1,21 +1,16 @@
 import readline from 'node:readline';
 import process from 'node:process';
-import os from 'node:os';
 
-import { up } from './src/commands/up.js'
+import { up } from './commands/up.js'
 
 const DEFAULT_USERNAME = 'User';
 const EXIT_CMD = '.exit';
 
 const userName = process.env.npm_config_username || DEFAULT_USERNAME;
 
-console.log(`Welcome to the File Manager, ${userName}!`);
-
 const printCWD = () => {
   console.log(`You are currently in ${process.cwd()}`);
 };
-
-printCWD();
 
 const commandsMap = {
   up
@@ -55,3 +50,6 @@ rl.on('line', (line) => {
 });
 
 rl.on('SIGINT', () => commandHandler(EXIT_CMD));
+
+console.log(`Welcome to the File Manager, ${userName}!`);
+printCWD();
