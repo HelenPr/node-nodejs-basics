@@ -1,7 +1,8 @@
 import readline from 'node:readline';
 import process from 'node:process';
 
-import { up } from './commands/up.js'
+import { up } from './commands/up.js';
+import { cd } from './commands/cd.js';
 
 const DEFAULT_USERNAME = 'User';
 const EXIT_CMD = '.exit';
@@ -13,7 +14,8 @@ const printCWD = () => {
 };
 
 const commandsMap = {
-  up
+  up,
+  cd
 }
 
 const rl = readline.createInterface({
@@ -21,7 +23,7 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-const commandHandler = (commandLine) => {
+const commandHandler = async (commandLine) => {
   const trimmed = commandLine.trim();
   try {
     if (trimmed === EXIT_CMD) {
@@ -33,7 +35,7 @@ const commandHandler = (commandLine) => {
       const [command, ...args] = trimmed.split(' ');
       const handler = commandsMap[command];
       if (handler) {
-        handler(args);
+        await handler(args);
       } else {
         console.log('Invalid input');
       }
