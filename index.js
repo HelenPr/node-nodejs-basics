@@ -22,9 +22,15 @@ const rl = readline.createInterface({
 
 const commandHandler = (command) => {
   const trimmed = command.trim();
-  if (trimmed === EXIT_CMD) {
-    console.log(`Thank you for using File Manager, ${userName}, goodbye!`);
-    process.exit(0);
+  try {
+    if (trimmed === EXIT_CMD) {
+      console.log(`Thank you for using File Manager, ${userName}, goodbye!`);
+      process.exit(0);
+    } else {
+      console.log('Invalid input');
+    }
+  } catch(error) {
+    console.log('Operation failed');
   }
 };
 
