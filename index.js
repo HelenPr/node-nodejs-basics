@@ -9,6 +9,12 @@ const userName = process.env.npm_config_username || DEFAULT_USERNAME;
 
 console.log(`Welcome to the File Manager, ${userName}!`);
 
+const printCWD = () => {
+  console.log(`You are currently in ${process.cwd()}`);
+};
+
+printCWD();
+
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
