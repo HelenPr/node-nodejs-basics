@@ -1,17 +1,11 @@
 import { unlink } from 'node:fs/promises';
 import path from 'node:path';
+import process from 'node:process';
 
-const remove = async () => {
-  const filePath = path.resolve(import.meta.dirname, 'files', 'fileToRemove.txt');
-
-  try {
-    await unlink(filePath);
-  } catch (error) {
-    const errorMessage = 'FS operation failed';
-    if (error.code === 'ENOENT') {
-      throw new Error(errorMessage);
-    }
+export const rm = async ([filePath]) => {
+  if (!filePath) {
+    throw new Error('File path is not provided');
   }
+  const resolvedPath = path.resolve(process.cwd(), filePath);
+  await unlink(resolvedPath);
 };
-
-await remove();

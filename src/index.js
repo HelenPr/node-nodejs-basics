@@ -2,7 +2,7 @@ import readline from 'node:readline';
 import process from 'node:process';
 
 import { up, cd, ls } from './nwd/index.js';
-import { cat, add, mkdir, rn, cp, mv } from './fs/index.js';
+import { cat, add, mkdir, rn, cp, mv, rm } from './fs/index.js';
 
 const DEFAULT_USERNAME = 'User';
 const EXIT_CMD = '.exit';
@@ -22,7 +22,8 @@ const commandsMap = {
   mkdir,
   rn,
   cp,
-  mv
+  mv,
+  rm
 }
 
 const rl = readline.createInterface({

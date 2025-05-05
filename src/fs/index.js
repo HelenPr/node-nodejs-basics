@@ -4,5 +4,6 @@ import { mkdir } from './mkdir.js';
 import { rn } from './rename.js';
 import { cp } from './copy.js';
 import { mv } from './move.js';
+import { rm } from './delete.js';
 
-export { cat, add, mkdir, rn, cp, mv };
+export { cat, add, mkdir, rn, cp, mv, rm };
