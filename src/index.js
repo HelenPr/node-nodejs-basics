@@ -3,6 +3,7 @@ import process from 'node:process';
 
 import { up, cd, ls } from './nwd/index.js';
 import { cat, add, mkdir, rn, cp, mv, rm } from './fs/index.js';
+import { osInfo as os } from './os/os.js';
 
 const DEFAULT_USERNAME = 'User';
 const EXIT_CMD = '.exit';
@@ -23,7 +24,8 @@ const commandsMap = {
   rn,
   cp,
   mv,
-  rm
+  rm,
+  os
 }
 
 const rl = readline.createInterface({
