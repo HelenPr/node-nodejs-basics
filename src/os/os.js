@@ -18,6 +18,10 @@ const getHomeDir = () => {
   console.log(`Home directory: ${os.homedir()}`);
 };
 
+const getSystemUsername = () => {
+  console.log(`System user name: ${os.userInfo().username}`);
+};
+
 export const osInfo = async ([option]) => {
   switch (option) {
     case '--EOL':
@@ -28,6 +32,9 @@ export const osInfo = async ([option]) => {
       break;
     case '--homedir':
       getHomeDir();
+      break;
+    case '--username':
+      getSystemUsername();
       break;
   }
 };
