@@ -1,36 +1,17 @@
-import { stat, cp } from 'node:fs/promises';
+import { createReadStream, createWriteStream } from 'node:fs';
 import path from 'node:path';
+import process from 'node:process';
+import { pipeline } from 'node:stream/promises';
 
-const copy = async () => {
-  const sourceDir = path.resolve(import.meta.dirname, 'files');
-  const destinationDir = path.resolve(import.meta.dirname, 'files_copy');
-  const errorMessage = 'FS operation failed';
-
-  try {
-    const sourceStats = await stat(sourceDir);
-    if (!sourceStats.isDirectory()) {
-      throw new Error(errorMessage);
-    }
-  } catch {
-    throw new Error(errorMessage);
+export const cp = async ([source, destination]) => {
+  if (!source || !destination) {
+    throw new Error('Source or destination path is not provided');
   }
 
-  try {
-    const destStats = await stat(destinationDir);
-    if (destStats.isDirectory()) {
-      throw new Error(errorMessage);
-    }
-  } catch (err) {
-    if (err.code !== 'ENOENT') {
-      throw new Error(errorMessage);
-    }
-  }
+  const sourcePath = path.resolve(process.cwd(), source);
+  const destinationPath = path.resolve(process.cwd(), destination);
 
-  try {
-    await cp(sourceDir, destinationDir, { recursive: true, errorOnExist: true, force: false });
-  } catch (error) {
-    throw new Error(errorMessage);
-  }
+  const readStream = createReadStream(sourcePath);
+  const writeStream = createWriteStream(destinationPath, { flags: 'wx' });
+  await pipeline(readStream, writeStream);
 };
-
-await copy();
