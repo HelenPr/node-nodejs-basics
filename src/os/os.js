@@ -14,6 +14,10 @@ const getCPUs = () => {
   });
 };
 
+const getHomeDir = () => {
+  console.log(`Home directory: ${os.homedir()}`);
+};
+
 export const osInfo = async ([option]) => {
   switch (option) {
     case '--EOL':
@@ -21,6 +25,9 @@ export const osInfo = async ([option]) => {
       break;
     case '--cpus':
       getCPUs();
+      break;
+    case '--homedir':
+      getHomeDir();
       break;
   }
 };
