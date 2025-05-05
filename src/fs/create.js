@@ -1,5 +1,11 @@
-const create = async () => {
-    // Write your code here 
-};
+import { writeFile } from 'node:fs/promises';
+import path from 'node:path';
+import process from 'node:process';
 
-await create();
+export const add = async ([fileName]) => {
+  if (!fileName) {
+    throw new Error('Filename is not provided');
+  }
+  const filePath = path.resolve(process.cwd(), fileName);
+  await writeFile(filePath, '');
+};
