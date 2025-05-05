@@ -3,6 +3,7 @@ import process from 'node:process';
 
 import { up } from './commands/up.js';
 import { cd } from './commands/cd.js';
+import { ls } from './commands/ls.js';
 
 const DEFAULT_USERNAME = 'User';
 const EXIT_CMD = '.exit';
@@ -15,7 +16,8 @@ const printCWD = () => {
 
 const commandsMap = {
   up,
-  cd
+  cd,
+  ls
 }
 
 const rl = readline.createInterface({
