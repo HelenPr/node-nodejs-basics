@@ -47,7 +47,7 @@ const commandHandler = async (commandLine) => {
     } else if (!trimmed){
       console.log('Invalid input');
     } else {
-      const [command, ...args] = trimmed.split(' ');
+      const [command, ...args] = trimmed.split(' ').filter(Boolean);
       const handler = commandsMap[command];
       if (handler) {
         await handler(args);
