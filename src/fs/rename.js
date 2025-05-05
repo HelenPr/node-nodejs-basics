@@ -1,19 +1,13 @@
-import { rename as renameFs } from 'node:fs/promises';
+import { rename } from 'node:fs/promises';
 import path from 'node:path';
+import process from 'node:process';
 
-const rename = async () => {
-  const basePath = path.resolve(import.meta.dirname, 'files');
-  const oldPath = path.resolve(basePath, 'wrongFilename.txt');
-  const newPath = path.resolve(basePath, 'properFilename.md');
-  const errorMessage = 'FS operation failed';
-
-  try {
-    await renameFs(oldPath, newPath);
-  } catch (err) {
-    if (err.code === 'ENOENT' || err.code === 'EEXIST') {
-      throw new Error(errorMessage);
-    }
+export const rn = async ([filePath, newName]) => {
+  if (!filePath || !newName) {
+    throw new Error('File name or path are not provided');
   }
-};
 
-await rename();
+  const oldPath = path.resolve(process.cwd(), filePath.trim());
+  const newPath = path.resolve(process.cwd(), newName.trim());
+  await rename(oldPath, newPath);
+};
