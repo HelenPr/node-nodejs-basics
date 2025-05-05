@@ -5,7 +5,7 @@ import { up, cd, ls } from './nwd/index.js';
 import { cat, add, mkdir, rn, cp, mv, rm } from './fs/index.js';
 import { osInfo as os } from './os/os.js';
 import { hash } from './hash/calcHash.js';
-import { compress } from './zip/index.js';
+import { compress, decompress } from './zip/index.js';
 
 const DEFAULT_USERNAME = 'User';
 const EXIT_CMD = '.exit';
@@ -29,7 +29,8 @@ const commandsMap = {
   rm,
   os,
   hash,
-  compress
+  compress,
+  decompress
 }
 
 const rl = readline.createInterface({
